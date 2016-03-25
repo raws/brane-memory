@@ -1,8 +1,8 @@
-Brane is a simple Ruby [Markov chain](http://en.wikipedia.org/wiki/Markov_chain) generator. This gem stores its data in memory.
+Brane is a simple Ruby [Markov chain](http://en.wikipedia.org/wiki/Markov_chain) generator. Data is stored in memory. Instances of `Brane::Memory` are thread-safe.
 
 ### Usage
 
-Instantiate a `Brane::Memory` and add sentences to it. Use `#sentence` to generate a random sentence.
+Instantiate `Brane::Memory` and add sentences to it. Use `#sentence` to generate a random sentence.
 
 ```ruby
 require 'brane'
