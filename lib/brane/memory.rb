@@ -12,6 +12,8 @@ module Brane
     end
 
     def add(sentence)
+      return if sentence =~ /\A\s*\z/
+
       words = sentence.split(WORD_SPLIT_PATTERN).map(&:freeze)
 
       @mutex.synchronize do
