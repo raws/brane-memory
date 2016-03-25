@@ -7,8 +7,6 @@ module Brane
     def initialize
       @mutex = Mutex.new
       @nodes = {}
-      @roots = WeightedSet.new
-      @terminators = WeightedSet.new
     end
 
     def add(sentence)
@@ -27,12 +25,10 @@ module Brane
         root = nodes.first
         root.root!
         root.followers << nodes[1]
-        @roots << root
 
         terminator = nodes.last
         terminator.termination!
         terminator.leaders << nodes[-2]
-        @terminators << terminator
 
         nil
       end
@@ -40,7 +36,17 @@ module Brane
 
     def sentence(seed: nil)
       @mutex.synchronize do
-        # TODO
+        sentence = [random_node]
+
+        until sentence.last.terminator?
+          sentence << sentence.last.random_follower
+        end
+
+        until sentence.first.root?
+          sentence.unshift sentence.first.random_leader
+        end
+
+        sentence.map(&:to_s).join ' '
       end
     end
 
@@ -65,6 +71,10 @@ module Brane
       punctuation.each { |char| node.punctuation << char }
 
       node
+    end
+
+    def random_node
+      @nodes[@nodes.keys.sample]
     end
   end
 end

@@ -27,6 +27,14 @@ module Brane
       @punctuation ||= WeightedSet.new
     end
 
+    def random_follower
+      followers.sample
+    end
+
+    def random_leader
+      leaders.sample
+    end
+
     def self.raw_word_to_normalized_word_and_punctuation(raw_word)
       raw_word, punctuation = *raw_word.match(WORD_AND_PUNCTUATION_PATTERN)[1..2]
       normalized_word = raw_word.strip.downcase
@@ -49,6 +57,10 @@ module Brane
 
     def terminator?
       @terminations.positive?
+    end
+
+    def to_s
+      variants.sample + punctuation.sample
     end
 
     def variants

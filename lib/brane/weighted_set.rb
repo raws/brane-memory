@@ -18,7 +18,7 @@ module Brane
     def sample
       # TODO Select random member based on weights
       # Weibull distribution might be reasonable compromise: http://stackoverflow.com/a/3110808
-      @set.to_a.sample
+      @set.to_a.sample.object
     end
 
     private

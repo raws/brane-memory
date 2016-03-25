@@ -4,7 +4,7 @@ require 'brane'
 require 'get_process_mem'
 
 if ARGV.empty?
-  $stderr.puts 'usage: benchmark.rb path/to/sentences.txt'
+  $stderr.puts 'usage: benchmark_load.rb path/to/sentences.txt'
   $stderr.puts 'requires: https://rubygems.org/gems/get_process_mem'
   exit 1
 end
@@ -22,7 +22,8 @@ def load_and_profile_batch(batch_size = 1000)
   end
 
   @sentence_count += sentences_this_batch
-  puts "batch=#{sentences_this_batch} sentences=#{@sentence_count} rss=#{GetProcessMem.new.mb}mb"
+  puts "sentences=#{@sentence_count} nodes=#{@brane.nodes.size} rss=#{GetProcessMem.new.mb}mb" \
+    "batch=#{sentences_this_batch}"
 end
 
 Benchmark.bm do |bm|
