@@ -4,7 +4,7 @@ module Brane
     attr_accessor :weight
 
     def initialize(object)
-      @object = object#.freeze
+      @object = object
       @weight = 0
     end
 
